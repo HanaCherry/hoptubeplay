@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HopTubePlay — GalaxyBunny Studio</title>
+  <link rel="stylesheet" href="/css/dashboard.css" />
+</head>
+<body>
+  <div class="galaxy" aria-hidden="true">
+    <div class="nebula n1"></div>
+    <div class="nebula n2"></div>
+    <div class="nebula n3"></div>
+    <div class="stars" id="stars"></div>
+  </div>
+  <aside class="sidebar">
+    <div class="brand">
+      <img class="brand-logo knock-black" src="/brand/hoptubeplay-logo.png?v=1" alt="HopTubePlay" />
+      <div class="studio-row">
+        <a class="studio-link" href="https://github.com/HanaCherry" target="_blank" rel="noreferrer">
+          <img class="studio-logo knock-black" src="/brand/studio-logo.png" alt="GalaxyBunny Studio" />
+          <small>GalaxyBunny Studio</small>
+        </a>
+      </div>
+    </div>
+    <label class="lang-wrap">
+      <select id="lang-select"></select>
+    </label>
+    <nav>
+      <a class="active" href="#apparence" data-i18n="navAppearance">Appearance</a>
+      <a href="#visibilite" data-i18n="navVisibility">Visibility</a>
+      <a href="#youtube" data-i18n="navYoutube">YouTube Music</a>
+      <a href="#obs" data-i18n="navObs">OBS / URL</a>
+    </nav>
+    <div class="side-foot">
+      <p data-i18n="footer">Now-playing widget for livestreams.</p>
+      <p class="ver" id="app-version"></p>
+      <button id="btn-stop" class="danger ghost stop-btn" data-i18n="stopServer">Stop server</button>
+    </div>
+  </aside>
+
+  <main>
+    <header class="top">
+      <div>
+        <h1>HopTubePlay Studio</h1>
+        <p class="sub" data-i18n="tagline">YouTube Music overlay for OBS.</p>
+      </div>
+      <div class="top-actions">
+        <span id="conn-badge" class="badge off" data-i18n="demoMode">Demo mode</span>
+        <button id="btn-demo-next" class="ghost" data-i18n="nextSong">Next song</button>
+      </div>
+    </header>
+    <div id="update-banner" class="update-banner hidden">
+      <div>
+        <strong data-i18n="updateAvailable">Update available</strong>
+        <span id="update-info"></span>
+      </div>
+      <button id="btn-update" class="primary" data-i18n="updateNow">Update now</button>
+    </div>
+    <div id="auth-banner" class="auth-banner hidden">
+      <div>
+        <strong data-i18n="demoBanner">You are in demo mode.</strong>
+        <span data-i18n="demoBannerBody">You can style the widget now. Connecting Pear Desktop is optional.</span>
+      </div>
+      <a class="primary" href="#youtube" data-i18n="authorize">Connect YouTube Music</a>
+    </div>
+
+    <section class="layout">
+      <div class="col">
+        <section class="panel" id="apparence">
+          <div class="panel-head">
+            <h2 data-i18n="appearance">Player appearance</h2>
+            <select id="profile-select"></select>
+          </div>
+          <div class="row-actions">
+            <input id="profile-name" data-i18n-placeholder="profileName" placeholder="Profile name" />
+            <button id="btn-add-profile" class="ghost" data-i18n="newProfile">New profile</button>
+            <button id="btn-del-profile" class="danger ghost" data-i18n="deleteProfile">Delete</button>
+          </div>
+
+          <label class="label" data-i18n="styleMusic">Music players</label>
+          <div class="chips player-styles" id="player-styles-music">
+            <button data-player="compact">Compact</button>
+            <button data-player="boxy">Boxy</button>
+            <button data-player="macos">macOS</button>
+            <button data-player="shell">Shell</button>
+            <button data-player="discord">Discord</button>
+            <button data-player="minimal">Minimal</button>
+            <button data-player="island">Island</button>
+            <button data-player="neon">Neon</button>
+            <button data-player="glass">Glass</button>
+            <button data-player="ticker">Ticker</button>
+            <button data-player="cassette">Cassette</button>
+            <button data-player="toast">Toast</button>
+            <button data-player="gameboy">Game Boy</button>
+            <button data-player="ticket">Ticket</button>
+            <button data-player="pixel">Pixel</button>
+            <button data-player="hologram">Hologram</button>
+            <button data-player="radio">Radio</button>
+            <button data-player="bubble">Bubble</button>
+            <button data-player="lowerthird">Lower third</button>
+            <button data-player="watch">Watch</button>
+            <button data-player="notebook">Notebook</button>
+            <button data-player="comic">Comic</button>
+            <button data-player="folder">Folder</button>
+            <button data-player="badge">Badge</button>
+            <button data-player="synthwave">Synthwave</button>
+            <button data-player="chalkboard">Chalkboard</button>
+            <button data-player="receipt">Receipt</button>
+            <button data-player="postcard">Postcard</button>
+            <button data-player="hud">HUD</button>
+            <button data-player="chat">Chat</button>
+            <button data-player="brutalist">Brutalist</button>
+            <button data-player="chrome">Chrome</button>
+            <button data-player="frost">Frost</button>
+            <button data-player="wood">Wood</button>
+            <button data-player="jukebox">Jukebox</button>
+            <button data-player="walkman">Walkman</button>
+            <button data-player="floppy">Floppy</button>
+            <button data-player="subway">Subway</button>
+            <button data-player="galaxybunny">Galaxy Bunny</button>
+            <button data-player="orb">Orb</button>
+            <button data-player="orbmini">Orb mini</button>
+            <button data-player="stackrow">Stack</button>
+            <button data-player="eqbar">EQ bar</button>
+            <button data-player="minipill">Pill</button>
+            <button data-player="sleeve">Sleeve</button>
+          </div>
+          <label class="label" data-i18n="styleVideo">Video players</label>
+          <div class="chips player-styles" id="player-styles-video">
+            <button data-player="cinema" data-i18n="styleCinema">Cinéma</button>
+            <button data-player="filmstrip">Film</button>
+            <button data-player="vhs">VHS</button>
+            <button data-player="covercard">Cover card</button>
+            <button data-player="gallery">Gallery</button>
+            <button data-player="polaroid">Polaroid</button>
+            <button data-player="arcade">Arcade</button>
+            <button data-player="poster">Poster</button>
+            <button data-player="sticky">Sticky</button>
+            <button data-player="kawaii">Kawaii</button>
+            <button data-player="sakura">Sakura</button>
+          </div>
+          <p class="hint" data-i18n="styleCinemaHint">Les skins musique utilisent la miniature. Les skins vidéo jouent le clip YouTube en sourdine. La miniature reste en dessous si le clip ne peut pas s’afficher. Le son vient de ton vrai lecteur.</p>
+
+          <div class="settings-pair"><div class="setting-box">
+          <label class="label" data-i18n="placement">Player position</label>
+          <div class="place-grid" id="place-grid" role="group">
+            <button type="button" data-place="tl" title="Top left"></button>
+            <button type="button" data-place="tc" title="Top center"></button>
+            <button type="button" data-place="tr" title="Top right"></button>
+            <button type="button" data-place="ml" title="Middle left"></button>
+            <button type="button" data-place="mc" title="Center"></button>
+            <button type="button" data-place="mr" title="Middle right"></button>
+            <button type="button" data-place="bl" title="Bottom left"></button>
+            <button type="button" data-place="bc" title="Bottom center"></button>
+            <button type="button" data-place="br" title="Bottom right"></button>
+          </div>
+
+          </div><div class="setting-box">
+          <label class="label" data-i18n="coverStyle">Cover art</label>
+          <div class="chips" id="cover-styles">
+            <button data-cover="square" data-i18n="coverThumb">Miniature</button>
+            <button data-cover="clip" data-i18n="coverClip">Vidéo</button>
+            <button data-cover="vinyl">Vinyl</button>
+            <button data-cover="none" data-i18n="coverNone">None</button>
+          </div>
+          <p class="hint" data-i18n="coverHint">Miniature = image. Vidéo = clip YouTube muet dans le lecteur.</p>
+
+          </div></div>
+          <div class="size-setting">
+            <label for="playerScale" data-i18n="playerSize">Taille du lecteur</label>
+            <div class="size-control">
+              <input id="playerScale" type="range" min="30" max="150" step="5" style="flex:1" aria-describedby="playerScaleValue" />
+              <output id="playerScaleValue" for="playerScale">100 %</output>
+            </div>
+          </div>
+          <div class="toggles">
+            <label class="switch"><input type="checkbox" id="coverGlow" /><span></span> <em data-i18n="coverGlow">Cover glow</em></label>
+            <label class="switch"><input type="checkbox" id="playerGlow" /><span></span> <em data-i18n="playerGlow">Player glow</em></label>
+            <label class="switch"><input type="checkbox" id="magicColors" /><span></span> <em data-i18n="magicColors">Magic colors</em></label>
+            <label class="switch"><input type="checkbox" id="coverBlur" /><span></span> <em data-i18n="coverBlur">Cover blur</em></label>
+            <label class="switch"><input type="checkbox" id="hideVisualizer" /><span></span> <em data-i18n="hideVisualizer">Hide visualizer</em></label>
+          </div>
+
+          <div id="color-row" class="color-row">
+            <label><span data-i18n="theme">Theme</span>
+              <select id="theme">
+                <option value="dark" data-i18n="dark">Dark</option>
+                <option value="light" data-i18n="light">Light</option>
+              </select>
+            </label>
+            <label><span data-i18n="accent">Accent color</span>
+              <input type="color" id="accentColor" value="#ff0033" />
+            </label>
+          </div>
+        </section>
+
+        <section class="panel" id="visibilite">
+          <h2 data-i18n="visibility">Visibility</h2>
+          <label class="label" data-i18n="fadeStyle">Fade style</label>
+          <div class="chips" id="fade-styles">
+            <button type="button" data-fx="fade" data-i18n="fxFade">Fade</button>
+            <button type="button" data-fx="slide" data-i18n="fxSlide">Slide</button>
+            <button type="button" data-fx="slide-left" data-i18n="fxSlideLeft">Slide left</button>
+            <button type="button" data-fx="scale" data-i18n="fxScale">Scale</button>
+            <button type="button" data-fx="pop" data-i18n="fxPop">Pop</button>
+            <button type="button" data-fx="blur" data-i18n="fxBlur">Blur</button>
+          </div>
+          <label class="field"><span data-i18n="appearDuration">Appear duration (s)</span>
+            <input type="number" id="appearDuration" min="0.1" max="5" step="0.1" />
+          </label>
+          <label class="field"><span data-i18n="hideDuration">Hide duration (s)</span>
+            <input type="number" id="hideDuration" min="0.1" max="5" step="0.1" />
+          </label>
+          <label class="field"><span data-i18n="appearDelay">Appear delay (s)</span>
+            <input type="number" id="appearDelay" min="0" max="10" step="0.05" />
+          </label>
+          <label class="switch"><input type="checkbox" id="hideOnPause" /><span></span> <em data-i18n="hideOnPause">Hide on pause</em></label>
+          <label class="field"><span data-i18n="hideDelay">Hide delay (s)</span>
+            <input type="number" id="hideOnPauseDelay" min="0" max="60" step="0.5" />
+          </label>
+          <label class="switch"><input type="checkbox" id="songChangeOnly" /><span></span> <em data-i18n="songChangeOnly">Only show on song switch</em></label>
+          <label class="field"><span data-i18n="songChangeDuration">Visible duration (s)</span>
+            <input type="number" id="songChangeDuration" min="0.5" max="60" step="0.5" />
+          </label>
+        </section>
+
+        <section class="panel" id="youtube">
+          <h2 data-i18n="youtube">YouTube</h2>
+          <p class="hint" data-i18n="youtubeHint">HopTubePlay reads Windows now-playing. No extra app required.</p>
+          <ol class="steps">
+            <li data-i18n="youtubeStep1">Open YouTube or YouTube Music in Chrome or Edge</li>
+            <li data-i18n="youtubeStep2">Play a track — it should appear in the Windows media flyout</li>
+            <li data-i18n="youtubeStep3">Keep the tab playing while you stream</li>
+          </ol>
+          <div class="row-actions">
+            <button id="btn-detect" class="primary" data-i18n="saveConnect">Detect YouTube</button>
+            <button id="btn-disconnect" class="ghost" data-i18n="disconnect">Use demo</button>
+          </div>
+          <p id="youtube-msg" class="msg"></p>
+          <details class="pear-advanced">
+            <summary data-i18n="pearAdvanced">Advanced: Pear Desktop</summary>
+            <p class="hint" data-i18n="pearDownloadHint">Optional, only if automatic detection is not enough.</p>
+            <p class="hint">
+              <a href="https://github.com/pear-devs/pear-desktop/releases/latest" target="_blank" rel="noreferrer" data-i18n="pearDownload">Download Pear Desktop</a>
+            </p>
+            <div class="creds">
+              <label><span data-i18n="pearHost">Host</span> <input id="pearHost" autocomplete="off" /></label>
+              <label><span data-i18n="pearPort">Port</span> <input id="pearPort" type="number" min="1" max="65535" /></label>
+            </div>
+            <label class="field"><span data-i18n="pearMode">API</span>
+              <select id="pearMode">
+                <option value="auto" data-i18n="pearModeAuto">Auto-detect</option>
+                <option value="amuse" data-i18n="pearModeAmuse">Amuse plugin (9863)</option>
+                <option value="apiserver" data-i18n="pearModeApi">API Server (26538)</option>
+              </select>
+            </label>
+            <label class="field"><span data-i18n="pearToken">API token (optional)</span>
+              <input id="pearToken" autocomplete="off" />
+            </label>
+            <div class="row-actions">
+              <button id="btn-save-pear" class="ghost" data-i18n="pearSave">Save Pear settings</button>
+            </div>
+          </details>
+        </section>
+
+        <section class="panel" id="obs">
+          <h2 data-i18n="obs">Add to OBS</h2>
+          <ol class="steps">
+            <li data-i18n="obs1">In OBS: Source → Browser</li>
+            <li data-i18n="obs2">Name it HopTubePlay</li>
+            <li data-i18n="obs3">Paste the URL, width 1920 × height 1080</li>
+            <li data-i18n="obs4">The overlay background is transparent</li>
+          </ol>
+          <div class="copy-row">
+            <code id="widget-url"></code>
+            <button id="btn-copy-url" class="ghost" data-i18n="copy">Copy</button>
+          </div>
+          <button id="btn-regen" class="ghost" data-i18n="regenToken">Generate a new secret token</button>
+        </section>
+      </div>
+
+      <aside class="preview-wrap">
+        <div class="preview-head">
+          <h2 data-i18n="livePreview">Live preview</h2>
+          <span class="live" data-i18n="live">LIVE</span>
+        </div>
+        <iframe id="preview" title="HopTubePlay preview" allow="autoplay; encrypted-media; picture-in-picture" referrerpolicy="origin"></iframe>
+        <p class="preview-note" data-i18n="liveNote">Changes apply instantly. The OBS overlay has a transparent background.</p>
+      </aside>
+    </section>
+  </main>
+  <script src="/js/i18n.js"></script>
+  <script src="/js/dashboard.js"></script>
+</body>
+</html>

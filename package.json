@@ -1,0 +1,20 @@
+{
+  "name": "hoptubeplay",
+  "version": "1.0.0",
+  "description": "HopTubePlay — YouTube now-playing overlay for OBS by GalaxyBunny Studio",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test test/player.test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/HanaCherry/hoptubeplay"
+  },
+  "keywords": ["obs", "youtube", "now-playing", "overlay", "stream", "widget", "galaxybunny"],
+  "author": "GalaxyBunny Studio",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}

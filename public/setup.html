@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HopTubePlay — GalaxyBunny Studio</title>
+  <link rel="stylesheet" href="/css/dashboard.css" />
+  <style>
+    body { display: block; max-width: 760px; margin: 0 auto; padding: 40px 20px 80px; }
+    .logo { font-size: 34px; }
+    h1 { margin: 8px 0; }
+    .step { background: var(--panel); border: 1px solid var(--line); border-radius: 18px; padding: 22px; margin: 16px 0; }
+    .primary.big { width: 100%; padding: 14px; font-size: 16px; margin-top: 12px; display: inline-flex; justify-content: center; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <div class="galaxy" aria-hidden="true">
+    <div class="nebula n1"></div>
+    <div class="nebula n2"></div>
+    <div class="nebula n3"></div>
+    <div class="stars" id="stars"></div>
+  </div>
+  <div class="brand">
+    <img class="header-logo knock-black" src="/brand/hoptubeplay-logo.png?v=1" alt="HopTubePlay" />
+    <div class="studio-row">
+      <a class="studio-link" href="https://github.com/HanaCherry" target="_blank" rel="noreferrer">
+        <img class="studio-logo knock-black" src="/brand/studio-logo.png" alt="GalaxyBunny Studio" />
+        <small>GalaxyBunny Studio</small>
+      </a>
+    </div>
+  </div>
+  <h1>YouTube Music</h1>
+  <p class="sub" data-i18n="youtubeHint">Pear Desktop must be running. Enable the Amuse plugin (or API Server).</p>
+  <p id="flash" class="msg"></p>
+  <section class="step">
+    <ol class="steps">
+      <li data-i18n="youtubeStep1">Install Pear Desktop (YouTube Music) from GitHub Releases</li>
+      <li data-i18n="youtubeStep2">In Pear Desktop: Plugins → Amuse → enable it (port 9863)</li>
+      <li data-i18n="youtubeStep3">Play a track and keep Pear Desktop open while you stream</li>
+    </ol>
+    <a class="primary" href="https://github.com/pear-devs/pear-desktop/releases/latest" target="_blank" rel="noreferrer" data-i18n="pearDownload">Download Pear Desktop</a>
+  </section>
+  <a class="primary big" href="/index.html#youtube" data-i18n="authorize">Connect YouTube Music</a>
+  <a class="primary big" href="/index.html" data-i18n="setupSkip">Skip and open the widget</a>
+  <script src="/js/i18n.js"></script>
+  <script>
+    const stars = document.getElementById("stars");
+    if (stars) {
+      for (let i = 0; i < 70; i++) {
+        const s = document.createElement("i");
+        s.style.left = Math.random() * 100 + "%";
+        s.style.top = Math.random() * 100 + "%";
+        const size = 1 + Math.random() * 2;
+        s.style.width = size + "px";
+        s.style.height = size + "px";
+        s.style.animationDelay = Math.random() * 4 + "s";
+        stars.appendChild(s);
+      }
+    }
+    window.hoptubeplayApplyI18n();
+    const params = new URLSearchParams(location.search);
+    if (params.get("pear") === "error") {
+      const flash = document.getElementById("flash");
+      flash.textContent = params.get("message") || window.hoptubeplayT("youtubeError");
+      flash.classList.add("err");
+    }
+  </script>
+</body>
+</html>
